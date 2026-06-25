@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bassline Lifeline — Harm Reduction for the Texas Festival Community</title>
+<meta name="description" content="Free naloxone, overdose response education, and harm reduction resources at Texas music festivals and events.">
+<style>
+  :root {
+    --navy-950: #0a0e1a;
+    --navy-900: #0f1424;
+    --navy-800: #161d33;
+    --navy-700: #232b48;
+    --orange-500: #ff6b35;
+    --orange-400: #ff8c5a;
+    --violet-500: #8b5cf6;
+    --violet-400: #a78bfa;
+    --white-soft: #f4f2ef;
+    --grey-400: #9aa0b4;
+    --grey-500: #6b7290;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--navy-950);
+    color: var(--white-soft);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  h1, h2, h3 {
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+  a { color: inherit; text-decoration: none; }
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid var(--orange-400);
+    outline-offset: 3px;
+  }
+
+  /* ============ NAV ============ */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10, 14, 26, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 24px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .logo {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 1.05rem;
+    letter-spacing: 0.04em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .logo-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--orange-500);
+    box-shadow: 0 0 12px var(--orange-500);
+    animation: pulse-dot 1.6s ease-in-out infinite;
+  }
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+  .nav-links {
+    display: flex;
+    gap: 28px;
+    font-size: 0.92rem;
+    color: var(--grey-400);
+  }
+  .nav-links a:hover { color: var(--orange-400); }
+  .nav-toggle { display: none; background: none; border: none; color: var(--white-soft); font-size: 1.5rem; cursor: pointer; }
+
+  @media (max-width: 720px) {
+    .nav-links {
+      position: fixed;
+      top: 64px; left: 0; right: 0;
+      background: var(--navy-900);
+      flex-direction: column;
+      gap: 0;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      transform: translateY(-110%);
+      transition: transform 0.25s ease;
+    }
+    .nav-links.open { transform: translateY(0); }
+    .nav-links a { padding: 14px 24px; border-top: 1px solid rgba(255,255,255,0.05); }
+    .nav-toggle { display: block; }
+  }
+
+  /* ============ HERO ============ */
+  .hero {
+    position: relative;
+    padding: 100px 24px 80px;
+    text-align: center;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -200px; left: 50%;
+    width: 900px; height: 600px;
+    transform: translateX(-50%);
+    background: radial-gradient(ellipse at center, rgba(139,92,246,0.18), transparent 60%);
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--orange-400);
+    margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-size: clamp(2.4rem, 6vw, 4.2rem);
+    line-height: 1.05;
+    margin-bottom: 20px;
+  }
+  .hero h1 .accent { color: var(--orange-500); }
+  .hero-sub {
+    max-width: 560px;
+    margin: 0 auto 36px;
+    color: var(--grey-400);
+    font-size: 1.08rem;
+  }
+  .hero-ctas {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 26px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    border: none;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--orange-500), var(--orange-400));
+    color: var(--navy-950);
+    box-shadow: 0 8px 24px rgba(255,107,53,0.25);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(255,107,53,0.35); }
+  .btn-ghost {
+    background: rgba(255,255,255,0.06);
+    color: var(--white-soft);
+    border: 1px solid rgba(255,255,255,0.15);
+  }
+  .btn-ghost:hover { background: rgba(255,255,255,0.1); }
+
+  /* Pulse line divider */
+  .pulse-divider {
+    width: 100%;
+    height: 60px;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+  }
+  .pulse-divider svg {
+    width: 200%;
+    height: 100%;
+    animation: pulse-scroll 8s linear infinite;
+  }
+  @keyframes pulse-scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* ============ SECTIONS ============ */
+  section { padding: 80px 24px; }
+  .section-eyebrow {
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--violet-400);
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    margin-bottom: 20px;
+    max-width: 700px;
+  }
+  .section-lead {
+    color: var(--grey-400);
+    max-width: 620px;
+    font-size: 1.05rem;
+    margin-bottom: 48px;
+  }
+
+  /* Mission */
+  .mission { background: var(--navy-900); }
+  .mission-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 56px;
+    align-items: start;
+  }
+  .mission-text p { color: var(--grey-400); margin-bottom: 18px; font-size: 1.02rem; }
+  .mission-text strong { color: var(--white-soft); }
+  .mission-badges {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .badge-card {
+    background: var(--navy-800);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 14px;
+    padding: 18px 20px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .badge-icon {
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    background: rgba(255,107,53,0.12);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    font-size: 1.1rem;
+  }
+  .badge-card h4 { font-size: 0.95rem; margin-bottom: 4px; }
+  .badge-card p { color: var(--grey-500); font-size: 0.88rem; margin: 0; }
+
+  @media (max-width: 800px) {
+    .mission-grid { grid-template-columns: 1fr; }
+  }
+
+  /* About Me photo gallery */
+  .about-photos {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-top: 32px;
+  }
+  .about-photo {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    aspect-ratio: 4/5;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .about-photo img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+  .about-photo:hover img { transform: scale(1.04); }
+  .about-photo::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(10,14,26,0.5), transparent 50%);
+    pointer-events: none;
+  }
+  @media (max-width: 640px) {
+    .about-photos { grid-template-columns: 1fr 1fr; }
+    .about-photos .about-photo:first-child { grid-column: 1 / -1; aspect-ratio: 16/10; }
+  }
+
+  /* What We Carry */
+  .carry-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .carry-card {
+    background: var(--navy-800);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 18px;
+    padding: 28px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .carry-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 3px;
+    background: linear-gradient(90deg, var(--orange-500), var(--violet-500));
+  }
+  .carry-icon { font-size: 1.8rem; margin-bottom: 14px; display: block; }
+  .carry-card h3 { font-size: 1.15rem; margin-bottom: 10px; }
+  .carry-card p { color: var(--grey-400); font-size: 0.94rem; }
+
+  @media (max-width: 800px) {
+    .carry-grid { grid-template-columns: 1fr; }
+  }
+
+  /* Response steps */
+  .steps-section { background: var(--navy-900); }
+  .steps-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .step {
+    display: flex;
+    gap: 24px;
+    padding: 28px 0;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+  .step:first-child { border-top: none; }
+  .step-num {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--orange-500);
+    min-width: 50px;
+  }
+  .step-content h4 { font-size: 1.1rem; margin-bottom: 6px; }
+  .step-content p { color: var(--grey-400); font-size: 0.96rem; margin: 0; }
+
+  /* Narcan / Safety section */
+  .safety-section { }
+  .safety-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 8px;
+  }
+  .safety-card {
+    background: var(--navy-800);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 18px;
+    padding: 26px 24px;
+  }
+  .safety-card h3 {
+    font-size: 1.1rem;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .safety-card h3 .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--violet-400);
+    flex-shrink: 0;
+  }
+  .safety-card ol, .safety-card ul {
+    color: var(--grey-400);
+    font-size: 0.95rem;
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .safety-card li strong { color: var(--white-soft); }
+  .safety-note {
+    margin-top: 24px;
+    background: rgba(139,92,246,0.08);
+    border: 1px solid rgba(139,92,246,0.25);
+    border-radius: 14px;
+    padding: 18px 20px;
+    font-size: 0.92rem;
+    color: var(--grey-400);
+  }
+  .safety-note strong { color: var(--violet-400); }
+  @media (max-width: 800px) {
+    .safety-grid { grid-template-columns: 1fr; }
+  }
+
+  /* Events */
+  .events-section { background: var(--navy-900); }
+  .events-empty {
+    border: 1px dashed rgba(255,255,255,0.15);
+    border-radius: 16px;
+    padding: 40px;
+    text-align: center;
+    color: var(--grey-500);
+  }
+
+  /* Booth Request Form */
+  .request-section {}
+  .request-card {
+    background: var(--navy-800);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 20px;
+    padding: 36px;
+  }
+  .form-row { margin-bottom: 20px; display: flex; flex-direction: column; gap: 8px; }
+  .form-row label { font-size: 0.88rem; color: var(--grey-400); }
+  .form-row input, .form-row textarea, .form-row select {
+    background: var(--navy-900);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px;
+    padding: 12px 14px;
+    color: var(--white-soft);
+    font-family: inherit;
+    font-size: 0.95rem;
+  }
+  .form-row input:focus, .form-row textarea:focus, .form-row select:focus {
+    outline: 2px solid var(--orange-400);
+    outline-offset: 1px;
+    border-color: transparent;
+  }
+  .form-two { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 640px) { .form-two { grid-template-columns: 1fr; } }
+  .cap-note {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255,107,53,0.08);
+    border: 1px solid rgba(255,107,53,0.25);
+    border-radius: 12px;
+    padding: 14px 16px;
+    font-size: 0.88rem;
+    color: var(--grey-400);
+    margin-bottom: 24px;
+  }
+  .cap-note strong { color: var(--orange-400); }
+  .request-contact {
+    margin-top: 28px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    font-size: 0.92rem;
+    color: var(--grey-400);
+  }
+  .request-contact a:hover { color: var(--orange-400); }
+
+  /* Contact / Footer */
+  .contact-section { text-align: center; }
+  .contact-section h2 { font-size: clamp(1.8rem, 4vw, 2.4rem); margin-bottom: 16px; }
+  .contact-section p { color: var(--grey-400); max-width: 480px; margin: 0 auto 28px; }
+
+  footer { background: var(--navy-900); border-top: 1px solid rgba(255,255,255,0.06); padding: 40px 24px; }
+  .footer-grid {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 24px;
+  }
+  .footer-links { display: flex; gap: 24px; font-size: 0.9rem; color: var(--grey-400); }
+  .footer-links a:hover { color: var(--orange-400); }
+  .footer-note { color: var(--grey-500); font-size: 0.82rem; line-height: 1.7; max-width: 900px; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="logo"><span class="logo-dot" aria-hidden="true"></span>BASSLINE LIFELINE</div>
+    <div class="nav-links" id="navLinks">
+      <a href="#mission">Mission</a>
+      <a href="#carry">What We Carry</a>
+      <a href="#safety">Narcan &amp; Safety</a>
+      <a href="#events">Events</a>
+      <a href="#request">Request a Booth</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">&#9776;</button>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-eyebrow">Texas &middot; Festival &amp; Rave Harm Reduction</div>
+  <h1>Keeping the <span class="accent">bass</span> going<br>and everybody breathing.</h1>
+  <p class="hero-sub">Bassline Lifeline brings free naloxone, overdose response education, and harm reduction resources to the Texas festival, rave, and music event community.</p>
+  <div class="hero-ctas">
+    <a href="#request" class="btn btn-primary">Request a Booth</a>
+    <a href="#safety" class="btn btn-ghost">Learn About Narcan</a>
+  </div>
+</section>
+
+<div class="pulse-divider" aria-hidden="true">
+  <svg viewBox="0 0 600 60" preserveAspectRatio="none">
+    <polyline points="0,30 60,30 80,10 100,50 120,30 600,30 660,30 680,10 700,50 720,30 1200,30"
+      fill="none" stroke="#ff6b35" stroke-width="2" opacity="0.5"/>
+  </svg>
+</div>
+
+<section class="mission" id="mission">
+  <div class="wrap">
+    <div class="mission-grid">
+      <div>
+        <div class="section-eyebrow">About Me</div>
+        <h2 class="section-title">From the dance floor, for the dance floor.</h2>
+        <div class="mission-text">
+          <p>I'm <strong>Tierra</strong> — Army veteran, CNA, nursing student, and a longtime member of the Texas EDM and rave community. I've spent years on festival grounds and warehouse dance floors, and I started Bassline Lifeline because the people I dance next to deserve to come home safe.</p>
+          <p>This isn't outside intervention. It's <strong>community care, by community</strong> — naloxone and education delivered by someone who's actually in the scene, who understands the culture, and who shows up because she genuinely cares about the people in it.</p>
+        </div>
+        <div class="about-photos">
+          <div class="about-photo"><img src="assets/about-1.jpg" alt="Tierra, founder of Bassline Lifeline"></div>
+          <div class="about-photo"><img src="assets/about-2.jpg" alt="Tierra at a Houston rave with a friend"></div>
+          <div class="about-photo"><img src="assets/about-3.jpg" alt="Tierra at Bass Canyon festival with friends"></div>
+        </div>
+      </div>
+      <div class="mission-badges">
+        <div class="badge-card">
+          <div class="badge-icon">&#127894;</div>
+          <div><h4>U.S. Army Veteran</h4><p>Served honorably, brought that same discipline to harm reduction work.</p></div>
+        </div>
+        <div class="badge-card">
+          <div class="badge-icon">&#128138;</div>
+          <div><h4>Nursing Student</h4><p>Pursuing a BSN, with a focus on community and pediatric care.</p></div>
+        </div>
+        <div class="badge-card">
+          <div class="badge-icon">&#127911;</div>
+          <div><h4>Festival &amp; Rave Community</h4><p>Years on the festival circuit — psytrance, bass, and everything between.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="carry">
+  <div class="wrap">
+    <div class="section-eyebrow">What We Carry</div>
+    <h2 class="section-title">Simple tools. Real impact.</h2>
+    <p class="section-lead">No gimmicks — just the resources proven to save lives at events where they're needed most.</p>
+    <div class="carry-grid">
+      <div class="carry-card">
+        <span class="carry-icon">&#128138;</span>
+        <h3>Naloxone (Narcan)</h3>
+        <p>Free, easy-to-use nasal spray that can reverse an opioid overdose in minutes. No training required to administer.</p>
+      </div>
+      <div class="carry-card">
+        <span class="carry-icon">&#128203;</span>
+        <h3>Educational Pamphlets</h3>
+        <p>Plain-language guides on recognizing an overdose, responding fast, and reducing risk at events.</p>
+      </div>
+      <div class="carry-card">
+        <span class="carry-icon">&#129309;</span>
+        <h3>Real Conversations</h3>
+        <p>No judgment, no lecture — just honest harm reduction info from someone who's actually part of the scene.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="steps-section">
+  <div class="wrap">
+    <div class="section-eyebrow">Know The Signs</div>
+    <h2 class="section-title">Overdose response, step by step.</h2>
+    <p class="section-lead">If you suspect an overdose, every second matters. Here's exactly what to do.</p>
+    <div class="steps-list">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-content">
+          <h4>Check for response</h4>
+          <p>Shout their name, rub your knuckles hard on their sternum. No response is a red flag — slow or no breathing, blue lips, or gurgling sounds mean it's time to act.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-content">
+          <h4>Call 911</h4>
+          <p>Texas's Good Samaritan law protects people who call for help during an overdose from drug possession charges. Always call.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-content">
+          <h4>Administer naloxone</h4>
+          <p>Spray one dose into one nostril. It's safe even if you're not sure it's an opioid overdose — it won't hurt someone if you're wrong.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-content">
+          <h4>Rescue breaths &amp; rescue position</h4>
+          <p>If they're not breathing, give rescue breaths. If they are breathing, place them on their side to prevent choking.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">05</div>
+        <div class="step-content">
+          <h4>Stay &amp; re-dose if needed</h4>
+          <p>If there's no response in 2–3 minutes, give a second dose. Stay with them until help arrives — naloxone wears off before some opioids do.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="safety-section" id="safety">
+  <div class="wrap">
+    <div class="section-eyebrow">Narcan &amp; Safety</div>
+    <h2 class="section-title">How to use Narcan, and why it's safe.</h2>
+    <p class="section-lead">Naloxone is one of the safest medications that exists. Here's everything you need to know before you ever need to use it.</p>
+
+    <div class="safety-grid">
+      <div class="safety-card">
+        <h3><span class="dot" aria-hidden="true"></span>How to use it</h3>
+        <ol>
+          <li><strong>Lay them on their back.</strong> Tilt the head back slightly.</li>
+          <li><strong>Peel back the package</strong> and remove the nasal spray device. Don't test or prime it — it's ready to go.</li>
+          <li><strong>Insert the nozzle</strong> into one nostril until your fingers touch the bottom of their nose.</li>
+          <li><strong>Press the plunger firmly</strong> to release the full dose. That's it — one spray, one full dose.</li>
+          <li><strong>Watch for breathing</strong> within 2–3 minutes. If there's no improvement, give a second dose in the other nostril.</li>
+          <li><strong>Stay with them</strong> until EMS arrives, even if they wake up and feel fine.</li>
+        </ol>
+      </div>
+      <div class="safety-card">
+        <h3><span class="dot" aria-hidden="true"></span>Why it's safe</h3>
+        <ul>
+          <li><strong>No abuse potential.</strong> Naloxone has zero recreational value and produces no high.</li>
+          <li><strong>It can't hurt someone</strong> who isn't on opioids. If you're not sure, give it anyway — there's no harm if you're wrong.</li>
+          <li><strong>It's not addictive</strong> and cannot be used to get someone "high" or sedated.</li>
+          <li><strong>Legal to carry and use</strong> in Texas. Good Samaritan laws protect people who use it and call for help.</li>
+          <li><strong>No medical license required.</strong> Anyone can carry and administer naloxone.</li>
+          <li><strong>Side effects are rare</strong> and far outweighed by the alternative. Some people wake up with withdrawal symptoms — uncomfortable, but never as serious as an overdose.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="safety-note">
+      <strong>Good to know:</strong> Naloxone only reverses opioid overdoses (heroin, fentanyl, oxycodone, and similar). It does not reverse overdoses from stimulants, alcohol, or other substances — but it's always safe to give if you're unsure, and you should still call 911 either way.
+    </div>
+  </div>
+</section>
+
+<section class="events-section" id="events">
+  <div class="wrap">
+    <div class="section-eyebrow">Where We'll Be</div>
+    <h2 class="section-title">Upcoming events &amp; schedule.</h2>
+    <p class="section-lead">Catch us on-site at these events. Schedule updates as bookings are confirmed.</p>
+    <div class="events-empty">Schedule loading — check back soon, or follow us on social for real-time updates.</div>
+  </div>
+</section>
+
+<section class="request-section" id="request">
+  <div class="wrap">
+    <div class="section-eyebrow">For Venues &amp; Promoters</div>
+    <h2 class="section-title">Request a harm reduction booth.</h2>
+    <p class="section-lead">Running an event and want a free harm reduction table on-site? Fill this out and we'll follow up to coordinate logistics.</p>
+
+    <div class="cap-note">
+      <span aria-hidden="true">&#9888;&#65039;</span>
+      <span><strong>Current limit: 1 Narcan kit per person.</strong> We're scaling supply — this cap helps us reach as many people as possible at every event.</span>
+    </div>
+
+    <div class="request-card">
+      <form onsubmit="return false;">
+        <div class="form-two">
+          <div class="form-row">
+            <label for="venueName">Venue or Event Name</label>
+            <input type="text" id="venueName" name="venueName" placeholder="e.g. AFER HTX">
+          </div>
+          <div class="form-row">
+            <label for="contactName">Your Name</label>
+            <input type="text" id="contactName" name="contactName" placeholder="Full name">
+          </div>
+        </div>
+        <div class="form-two">
+          <div class="form-row">
+            <label for="eventDate">Event Date</label>
+            <input type="date" id="eventDate" name="eventDate">
+          </div>
+          <div class="form-row">
+            <label for="attendance">Expected Attendance</label>
+            <input type="text" id="attendance" name="attendance" placeholder="e.g. 500">
+          </div>
+        </div>
+        <div class="form-row">
+          <label for="details">Tell us about the event</label>
+          <textarea id="details" name="details" rows="4" placeholder="Location, set times, anything we should know to plan the booth"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit Request</button>
+      </form>
+
+      <div class="request-contact">
+        <a href="mailto:Basslinelifeline@gmail.com">&#9993;&#65039; Basslinelifeline@gmail.com</a>
+        <a href="tel:3039010140">&#128241; (303) 901-0140</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact-section" id="contact">
+  <div class="wrap">
+    <h2>Want naloxone at your next event?</h2>
+    <p>We respond to event organizers, individuals, and anyone who wants harm reduction resources on-site.</p>
+    <div class="hero-ctas" style="justify-content: center;">
+      <a href="mailto:Basslinelifeline@gmail.com" class="btn btn-primary">Basslinelifeline@gmail.com</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="logo"><span class="logo-dot" aria-hidden="true"></span>BASSLINE LIFELINE</div>
+      <div class="footer-links">
+        <a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://tiktok.com" target="_blank" rel="noopener">TikTok</a>
+        <a href="mailto:Basslinelifeline@gmail.com">Email</a>
+      </div>
+    </div>
+    <p class="footer-note">Bassline Lifeline is an independent community harm reduction initiative and is not currently a registered 501(c)(3) nonprofit. Naloxone provided is for personal use and is not a substitute for emergency medical care. Always call 911 in an overdose emergency.</p>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('navToggle').addEventListener('click', function() {
+    document.getElementById('navLinks').classList.toggle('open');
+  });
+</script>
+
+</body>
+</html>
